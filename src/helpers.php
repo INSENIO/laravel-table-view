@@ -9,6 +9,23 @@ if (! function_exists('tableView')) {
      */
     function tableView($data)
     {
+
+        if(isset($_GET['sort'])){
+
+            if(isset($_GET['desc'])){
+
+                $data = $data->sortByDesc($_GET['sort']);
+
+            }else{
+
+                $data = $data->sortBy($_GET['sort']);
+
+            }
+
+        }
+
         return new TableView($data);
+
     }
+
 }

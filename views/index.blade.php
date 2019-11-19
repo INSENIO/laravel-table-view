@@ -7,10 +7,10 @@
             <div class="pull-right col-sm-3">
                 <div class="input-group">
                     <input type="text"
-                            placeholder="Search"
-                            name="q"
-                            class="input-sm form-control"
-                            value="{{ Request::get('q') }}">
+                           placeholder="Search"
+                           name="q"
+                           class="input-sm form-control"
+                           value="{{ Request::get('q') }}">
                     <span class="input-group-btn">
                             <button type="button" class="btn btn-sm btn-primary"> Search </button>
                     </span>
@@ -29,20 +29,8 @@
             @endif
             @foreach($tableView->columns() as $column)
 
-                @php
-                    if(isset($_GET['q'])){
-                        $q = '&q=' . $_GET['q'];
-                    }else{
-                        $q = '';
-                    }
-                @endphp
                 <th>
-
-                    @if(isset($_GET['sort']) && !isset($_GET['desc']))
-                        <a href="?sort={{ str_replace(' ','_',strtolower($column->title())) }}&desc=1{{$q}}">{{ $column->title() }}</a>
-                    @else
-                        <a href="?sort={{ str_replace(' ','_',strtolower($column->title())) }}{{$q}}">{{ $column->title() }}</a>
-                    @endif
+                    {{ $column->title() }}
 
                 </th>
 
@@ -63,24 +51,24 @@
             @if($tableView->hasChildDetails())
                 <td class="details-control">
                     <svg style="cursor: pointer" width=14 height=14 aria-hidden="true" data-prefix="fas"
-                            data-icon="angle-down"
-                            class="svg-inline--fa fa-angle-down fa-w-10" role="img" xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 320 512">
+                         data-icon="angle-down"
+                         class="svg-inline--fa fa-angle-down fa-w-10" role="img" xmlns="http://www.w3.org/2000/svg"
+                         viewBox="0 0 320 512">
                         <path fill="currentColor"
-                                d="M143 352.3L7 216.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.2 9.4-24.4 9.4-33.8 0z"></path>
+                              d="M143 352.3L7 216.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.2 9.4-24.4 9.4-33.8 0z"></path>
                     </svg>
                     <svg style="display: none; cursor: pointer" width=14 height=14 aria-hidden="true" data-prefix="fas"
-                            data-icon="angle-up"
-                            class="svg-inline--fa fa-angle-up fa-w-10" role="img" xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 320 512">
+                         data-icon="angle-up"
+                         class="svg-inline--fa fa-angle-up fa-w-10" role="img" xmlns="http://www.w3.org/2000/svg"
+                         viewBox="0 0 320 512">
                         <path fill="currentColor"
-                                d="M177 159.7l136 136c9.4 9.4 9.4 24.6 0 33.9l-22.6 22.6c-9.4 9.4-24.6 9.4-33.9 0L160 255.9l-96.4 96.4c-9.4 9.4-24.6 9.4-33.9 0L7 329.7c-9.4-9.4-9.4-24.6 0-33.9l136-136c9.4-9.5 24.6-9.5 34-.1z"></path>
+                              d="M177 159.7l136 136c9.4 9.4 9.4 24.6 0 33.9l-22.6 22.6c-9.4 9.4-24.6 9.4-33.9 0L160 255.9l-96.4 96.4c-9.4 9.4-24.6 9.4-33.9 0L7 329.7c-9.4-9.4-9.4-24.6 0-33.9l136-136c9.4-9.5 24.6-9.5 34-.1z"></path>
                     </svg>
                 </td>
             @endif
             @foreach($tableView->columns() as $column)
                 <td class="{{ $column->cssClasses() }}">
-                    {!!  Str::limit($column->rowValue($dataModel), 100, ' ...')  !!}
+                    {!!  $column->rowValue($dataModel)  !!}
                 </td>
                 @endforeach
                 </tr>
